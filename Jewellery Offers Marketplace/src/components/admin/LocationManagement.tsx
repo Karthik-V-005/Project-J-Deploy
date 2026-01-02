@@ -2,11 +2,9 @@ import { useState } from 'react';
 import { states, citiesByState, pincodesByCity } from '../../data/mockData';
 import { Plus, Trash2, MapPin } from 'lucide-react';
 
-interface LocationManagementProps {
-  isDarkMode: boolean;
-}
 
-export function LocationManagement({ isDarkMode }: LocationManagementProps) {
+
+export function LocationManagement() {
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [newState, setNewState] = useState('');

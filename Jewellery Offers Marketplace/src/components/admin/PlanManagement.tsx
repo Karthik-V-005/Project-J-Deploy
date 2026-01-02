@@ -3,11 +3,8 @@ import { subscriptionPlans } from '../../data/mockData';
 import { SubscriptionPlan } from '../../types';
 import { Edit2, Save, X } from 'lucide-react';
 
-interface PlanManagementProps {
-  isDarkMode: boolean;
-}
 
-export function PlanManagement({ isDarkMode }: PlanManagementProps) {
+export function PlanManagement() {
   const [plans, setPlans] = useState(subscriptionPlans);
   const [editingPlan, setEditingPlan] = useState<string | null>(null);
   const [editValues, setEditValues] = useState<{ price: number; posts: number; months: number }>({ 
@@ -35,58 +32,46 @@ export function PlanManagement({ isDarkMode }: PlanManagementProps) {
   };
 
   return (
-    <div className={`${isDarkMode ? 'bg-zinc-900 border border-amber-500/20' : 'bg-white'} rounded-xl shadow-md p-6`}>
-      <h3 className={isDarkMode ? 'text-white' : 'text-gray-900'}>Subscription Plans Management</h3>
-      <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} mb-6`}>Modify pricing and post limits for subscription plans</p>
+    <div className="bg-white rounded-xl shadow-md p-6">
+      <h3 className="text-gray-900">Subscription Plans Management</h3>
+      <p className="text-gray-600 mb-6">Modify pricing and post limits for subscription plans</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {plans.map((plan) => (
           <div 
             key={plan.id} 
-            className={`border-2 ${isDarkMode ? 'border-amber-500/20 bg-black' : 'border-gray-200'} rounded-xl p-6`}
+            className="border-2 border-gray-200 rounded-xl p-6"
           >
             <div className="text-center mb-4">
-              <h4 className={`mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{plan.name}</h4>
+              <h4 className="mb-2 text-gray-900">{plan.name}</h4>
               
               {editingPlan === plan.id ? (
                 <div className="space-y-3">
                   <div>
-                    <label className={`block text-xs mb-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Price (₹)</label>
+                    <label className="block text-xs mb-1 text-gray-600">Price (₹)</label>
                     <input
                       type="number"
                       value={editValues.price}
                       onChange={(e) => setEditValues({ ...editValues, price: parseInt(e.target.value) || 0 })}
-                      className={`w-full px-3 py-2 rounded-lg border text-center ${
-                        isDarkMode 
-                          ? 'bg-zinc-900 border-amber-500/20 text-white' 
-                          : 'bg-white border-gray-300'
-                      }`}
+                      className="w-full px-3 py-2 rounded-lg border text-center bg-white border-gray-300"
                     />
                   </div>
                   <div>
-                    <label className={`block text-xs mb-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Posts</label>
+                    <label className="block text-xs mb-1 text-gray-600">Posts</label>
                     <input
                       type="number"
                       value={editValues.posts}
                       onChange={(e) => setEditValues({ ...editValues, posts: parseInt(e.target.value) || 0 })}
-                      className={`w-full px-3 py-2 rounded-lg border text-center ${
-                        isDarkMode 
-                          ? 'bg-zinc-900 border-amber-500/20 text-white' 
-                          : 'bg-white border-gray-300'
-                      }`}
+                      className="w-full px-3 py-2 rounded-lg border text-center bg-white border-gray-300"
                     />
                   </div>
                   <div>
-                    <label className={`block text-xs mb-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Months</label>
+                    <label className="block text-xs mb-1 text-gray-600">Months</label>
                     <input
                       type="number"
                       value={editValues.months}
                       onChange={(e) => setEditValues({ ...editValues, months: parseInt(e.target.value) || 1 })}
-                      className={`w-full px-3 py-2 rounded-lg border text-center ${
-                        isDarkMode 
-                          ? 'bg-zinc-900 border-amber-500/20 text-white' 
-                          : 'bg-white border-gray-300'
-                      }`}
+                      className="bg-white border-gray-300"
                     />
                   </div>
                 </div>
@@ -96,13 +81,13 @@ export function PlanManagement({ isDarkMode }: PlanManagementProps) {
                     <span className="text-amber-500">₹{plan.price}</span>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                    <div className={`${isDarkMode ? 'bg-zinc-900 border border-amber-500/20' : 'bg-gray-50'} rounded-lg p-3`}>
-                      <p className={`mb-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{plan.posts}</p>
-                      <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Posts</p>
+                    <div className="bg-gray-50 rounded-lg p-3">
+                      <p className="text-gray-900">{plan.posts}</p>
+                      <p className="text-gray-600">Posts</p>
                     </div>
-                    <div className={`${isDarkMode ? 'bg-zinc-900 border border-amber-500/20' : 'bg-gray-50'} rounded-lg p-3`}>
-                      <p className={`mb-1 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{plan.months}</p>
-                      <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Month{plan.months > 1 ? 's' : ''}</p>
+                    <div className="bg-gray-50 rounded-lg p-3">
+                      <p className="text-gray-900">{plan.months}</p>
+                      <p className="text-gray-600">Month{plan.months > 1 ? 's' : ''}</p>
                     </div>
                   </div>
                 </>
@@ -121,11 +106,7 @@ export function PlanManagement({ isDarkMode }: PlanManagementProps) {
                   </button>
                   <button
                     onClick={handleCancel}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg transition-colors ${
-                      isDarkMode 
-                        ? 'bg-zinc-800 text-white hover:bg-zinc-700' 
-                        : 'bg-gray-500 text-white hover:bg-gray-600'
-                    }`}
+                    className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg transition-colors bg-gray-500 text-white hover:bg-gray-600"
                   >
                     <X className="w-4 h-4" />
                     Cancel
@@ -146,12 +127,12 @@ export function PlanManagement({ isDarkMode }: PlanManagementProps) {
       </div>
 
       {/* Plan Features */}
-      <div className={`mt-8 p-6 rounded-xl ${isDarkMode ? 'bg-amber-500/10 border border-amber-500/20' : 'bg-blue-50'}`}>
-        <h4 className={isDarkMode ? 'text-white' : 'text-gray-900'}>Plan Features</h4>
+      <div className="mt-8 p-6 rounded-xl bg-blue-50">
+        <h4 className="text-gray-900">Plan Features</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
           <div>
-            <p className={`text-sm mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>All plans include:</p>
-            <ul className={`space-y-1 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className="text-sm mb-2 text-gray-700">All plans include:</p>
+            <ul className="space-y-1 text-sm text-gray-600">
               <li>• Admin approval for all offers</li>
               <li>• Analytics dashboard access</li>
               <li>• Edit and delete offer capabilities</li>
@@ -159,8 +140,8 @@ export function PlanManagement({ isDarkMode }: PlanManagementProps) {
             </ul>
           </div>
           <div>
-            <p className={`text-sm mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Post count management:</p>
-            <ul className={`space-y-1 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className="text-sm mb-2 text-gray-700">Post count management:</p>
+            <ul className="space-y-1 text-sm text-gray-600">
               <li>• Posts reduce when offers are published</li>
               <li>• Expired offers don't refund posts</li>
               <li>• Vendors can purchase new plans anytime</li>

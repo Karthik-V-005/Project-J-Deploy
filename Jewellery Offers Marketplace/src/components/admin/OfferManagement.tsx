@@ -3,11 +3,9 @@ import { mockOffers } from '../../data/mockData';
 import { Offer, OfferStatus } from '../../types';
 import { CheckCircle, XCircle, Search, Eye, Trash2 } from 'lucide-react';
 
-interface OfferManagementProps {
-  isDarkMode: boolean;
-}
 
-export function OfferManagement({ isDarkMode }: OfferManagementProps) {
+
+export function OfferManagement() {
   const [offers, setOffers] = useState(mockOffers);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterStatus, setFilterStatus] = useState<OfferStatus | 'all'>('all');
@@ -104,7 +102,7 @@ export function OfferManagement({ isDarkMode }: OfferManagementProps) {
 
   {/* Dropdown */}
             {isFilterOpen && (
-           <div className={`absolute left-0 top-full mt-2  z-50 w-full rounded-lg shadow-lg border ${isDarkMode ? 'bg-zinc-900 border-zinc-700 text-white': 'bg-white border-gray-200 text-black'}`}>
+           <div className="absolute left-0 top-full mt-2  z-50 w-full rounded-lg shadow-lg border bg-white border-gray-200 text-black">
             {statusOptions.map(status => (
             <button
                 key={status}
@@ -172,9 +170,9 @@ export function OfferManagement({ isDarkMode }: OfferManagementProps) {
 
       {/* Offer Details Modal */}
       {selectedOffer && (
-         <div className={`fixed inset-0 flex items-center justify-center z-50 p-4 ${isDarkMode ? 'bg-black/80' : 'bg-black/30'}`}>
-          <div className={`rounded-2xl shadow-xl border w-full max-w-3xl max-h-[90vh] overflow-y-auto ${isDarkMode ? 'bg-zinc-900 text-white border-zinc-800': 'bg-white text-black border-gray-200'}`}>
-            <div className={`sticky top-0 p-6 flex items-center justify-between border-b ${isDarkMode ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
+         <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-black/30">
+          <div className="rounded-2xl shadow-xl border w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-white text-black border-gray-200">
+            <div className="sticky top-0 p-6 flex items-center justify-between border-b bg-white border-gray-200">
               <h2>Offer Details</h2>
               <button
                 onClick={() => setSelectedOffer(null)}
@@ -195,7 +193,7 @@ export function OfferManagement({ isDarkMode }: OfferManagementProps) {
               </div>
 
               {/* Status */}
-              <div className={`flex items-center justify-between p-4 rounded-xl border ${isDarkMode ? 'bg-zinc-800 border-zinc-700' : 'bg-gray-100 border-gray-200'}`}>
+              <div className="flex items-center justify-between p-4 rounded-xl border bg-gray-100 border-gray-200">
                 <span className="text-foreground">Current Status</span>
                 {getStatusBadge(selectedOffer.status)}
               </div>

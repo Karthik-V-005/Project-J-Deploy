@@ -3,11 +3,7 @@ import { mockVendors } from '../../data/mockData';
 import { Vendor, VendorStatus } from '../../types';
 import { CheckCircle, XCircle, Ban, Search, Eye } from 'lucide-react';
 
-interface VendorManagementProps {
-  isDarkMode: boolean;
-}
-
-export function VendorManagement({ isDarkMode }: VendorManagementProps) {
+export function VendorManagement() {
   const [vendors, setVendors] = useState(mockVendors);
   const [filterStatus, setFilterStatus] = useState<VendorStatus | 'all'>('all');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -68,7 +64,7 @@ export function VendorManagement({ isDarkMode }: VendorManagementProps) {
   return (
     <div>
       <div className="bg-card text-card-foreground border border-border rounded-xl shadow-md p-6 mb-6">
-       <h3 className="mb-4 text-foreground">
+        <h3 className="mb-4 text-foreground">
           Vendor Management
         </h3>
 
@@ -114,7 +110,7 @@ export function VendorManagement({ isDarkMode }: VendorManagementProps) {
             </button>
 
             {isFilterOpen && (
-              <div className={`absolute left-0 top-full mt-2  z-50 w-full rounded-lg shadow-lg border ${isDarkMode ? 'bg-zinc-900 border-zinc-700 text-white': 'bg-white border-gray-200 text-black'}`}>
+              <div className="absolute left-0 top-full mt-2 z-50 w-full rounded-lg shadow-lg border bg-white border-gray-200 text-black">
                 {statusOptions.map(status => (
                   <button
                     key={status}
@@ -123,7 +119,7 @@ export function VendorManagement({ isDarkMode }: VendorManagementProps) {
                       setIsFilterOpen(false);
                     }}
                     className="w-full text-left px-4 py-2 text-foreground transition-all hover:bg-amber-500/20 hover:text-amber-500 hover:pl-6 border-l-4 border-transparent hover:border-amber-500">
-                    {status === 'all'? 'All Statuses' : status.charAt(0).toUpperCase() + status.slice(1)}
+                    {status === 'all' ? 'All Statuses' : status.charAt(0).toUpperCase() + status.slice(1)}
                   </button>
                 ))}
               </div>
@@ -180,144 +176,135 @@ export function VendorManagement({ isDarkMode }: VendorManagementProps) {
         </div>
       </div>
 
-      {/* Vendor Details Modal — unchanged (already correct) */}
+      {/* Vendor Details Modal */}
       {selectedVendor && (
-  <div className={`fixed inset-0 flex items-center justify-center z-50 p-4 ${isDarkMode ? 'bg-black/80' : 'bg-black/30'}`}>
-    <div className={`rounded-2xl shadow-xl border w-full max-w-3xl
-    ${isDarkMode
-      ? 'bg-zinc-900 text-white border-zinc-800'
-      : 'bg-white text-black border-gray-200'}`}>
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-black/30">
+          <div className="rounded-2xl shadow-xl border w-full max-w-3xl bg-white text-black border-gray-200">
+            {/* Header */}
+            <div className="sticky top-0 p-6 flex items-center justify-between border-b bg-white border-gray-200">
+              <h2 className="text-lg font-medium text-foreground">Vendor Details</h2>
+              <button
+                onClick={() => setSelectedVendor(null)}
+                className="p-2 hover:bg-muted rounded-lg"
+              >
+                <XCircle className="w-6 h-6 text-foreground" />
+              </button>
+            </div>
 
-     {/* Header */}
-      <div
-  className={`sticky top-0 p-6 flex items-center justify-between border-b ${isDarkMode ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'}`}>
-        <h2 className="text-lg font-medium text-foreground">Vendor Details</h2>
-        <button
-          onClick={() => setSelectedVendor(null)}
-          className="p-2 hover:bg-muted rounded-lg"
-        >
-          <XCircle className="w-6 h-6 text-foreground" />
-        </button>
-      </div>
-
-      {/* Content */}
-      <div className="p-6 space-y-6">
-
-        {/* Status */}
-       <div
-  className={`flex items-center justify-between p-4 rounded-xl border
-    ${isDarkMode ? 'bg-zinc-800 border-zinc-700' : 'bg-gray-100 border-gray-200'}`}>
-        <span className="text-muted-foreground">Current Status</span>
-          {getStatusBadge(selectedVendor.status)}
-        </div>
-
-        {/* Personal Information */}
-        <div>
-          <h3 className="text-amber-400 mb-3">Personal Information</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm text-muted-foreground">Full Name</p>
-              <p className="text-foreground">{selectedVendor.name}</p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Email</p>
-              <p className="text-foreground">{selectedVendor.email}</p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Phone</p>
-              <p className="text-foreground">{selectedVendor.phone}</p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Registered On</p>
-              <p className="text-foreground">
-                {new Date(selectedVendor.createdAt).toLocaleDateString()}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Business Information */}
-        <div>
-          <h3 className="text-amber-400 mb-3">Business Information</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm text-muted-foreground">Business Name</p>
-              <p className="text-foreground">{selectedVendor.businessName}</p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">GST Number</p>
-              <p className="text-foreground">{selectedVendor.gstNumber}</p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Remaining Posts</p>
-              <p className="text-foreground">{selectedVendor.remainingPosts}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* KYC Documents */}
-        <div>
-          <h3 className="text-amber-400 mb-3">KYC Documents</h3>
-          <div className="space-y-2">
-            {selectedVendor.kycDocuments.map((doc, index) => (
-              <div
-                key={index}
-                className={`flex items-center justify-between p-3 rounded-lg border ${isDarkMode? 'bg-zinc-800 border-zinc-700': 'bg-gray-100 border-gray-200'}`} >
-                <span className="text-foreground">{doc}</span>
-                <button className="text-blue-600 hover:text-blue-700 text-sm">
-                  View
-                </button>
+            {/* Content */}
+            <div className="p-6 space-y-6">
+              {/* Status */}
+              <div className="flex items-center justify-between p-4 rounded-xl border bg-gray-100 border-gray-200">
+                <span className="text-muted-foreground">Current Status</span>
+                {getStatusBadge(selectedVendor.status)}
               </div>
-            ))}
+
+              {/* Personal Information */}
+              <div>
+                <h3 className="text-amber-400 mb-3">Personal Information</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Full Name</p>
+                    <p className="text-foreground">{selectedVendor.name}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Email</p>
+                    <p className="text-foreground">{selectedVendor.email}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Phone</p>
+                    <p className="text-foreground">{selectedVendor.phone}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Registered On</p>
+                    <p className="text-foreground">
+                      {new Date(selectedVendor.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Business Information */}
+              <div>
+                <h3 className="text-amber-400 mb-3">Business Information</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground">Business Name</p>
+                    <p className="text-foreground">{selectedVendor.businessName}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">GST Number</p>
+                    <p className="text-foreground">{selectedVendor.gstNumber}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Remaining Posts</p>
+                    <p className="text-foreground">{selectedVendor.remainingPosts}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* KYC Documents */}
+              <div>
+                <h3 className="text-amber-400 mb-3">KYC Documents</h3>
+                <div className="space-y-2">
+                  {selectedVendor.kycDocuments.map((doc, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3 rounded-lg border bg-gray-100 border-gray-200">
+                      <span className="text-foreground">{doc}</span>
+                      <button className="text-blue-600 hover:text-blue-700 text-sm">
+                        View
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-3">
+                {selectedVendor.status === 'pending' && (
+                  <>
+                    <button
+                      onClick={() => handleApprove(selectedVendor.id)}
+                      className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600"
+                    >
+                      <CheckCircle className="w-5 h-5" />
+                      Approve Vendor
+                    </button>
+                    <button
+                      onClick={() => handleReject(selectedVendor.id)}
+                      className="flex-1 flex items-center justify-center gap-2 bg-red-500 text-white py-3 rounded-lg hover:bg-red-600"
+                    >
+                      <XCircle className="w-5 h-5" />
+                      Reject Vendor
+                    </button>
+                  </>
+                )}
+
+                {selectedVendor.status === 'approved' && (
+                  <button
+                    onClick={() => handleSuspend(selectedVendor.id)}
+                    className="flex-1 flex items-center justify-center gap-2 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600"
+                  >
+                    <Ban className="w-5 h-5" />
+                    Suspend Vendor
+                  </button>
+                )}
+
+                {selectedVendor.status === 'suspended' && (
+                  <button
+                    onClick={() => handleApprove(selectedVendor.id)}
+                    className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600"
+                  >
+                    <CheckCircle className="w-5 h-5" />
+                    Reactivate Vendor
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Actions */}
-        <div className="flex gap-3">
-          {selectedVendor.status === 'pending' && (
-            <>
-              <button
-                onClick={() => handleApprove(selectedVendor.id)}
-                className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600"
-              >
-                <CheckCircle className="w-5 h-5" />
-                Approve Vendor
-              </button>
-              <button
-                onClick={() => handleReject(selectedVendor.id)}
-                className="flex-1 flex items-center justify-center gap-2 bg-red-500 text-white py-3 rounded-lg hover:bg-red-600"
-              >
-                <XCircle className="w-5 h-5" />
-                Reject Vendor
-              </button>
-            </>
-          )}
-
-          {selectedVendor.status === 'approved' && (
-            <button
-              onClick={() => handleSuspend(selectedVendor.id)}
-              className="flex-1 flex items-center justify-center gap-2 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600"
-            >
-              <Ban className="w-5 h-5" />
-              Suspend Vendor
-            </button>
-          )}
-
-          {selectedVendor.status === 'suspended' && (
-            <button
-              onClick={() => handleApprove(selectedVendor.id)}
-              className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600"
-            >
-              <CheckCircle className="w-5 h-5" />
-              Reactivate Vendor
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
+      )}
     </div>
   );
 }
