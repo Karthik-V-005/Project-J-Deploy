@@ -17,19 +17,28 @@ export default function App() {
   };
 
   return (
-    <div style={{ backgroundColor: "var(--bg-secondary)" }}
-    className="min-h-screen">
+    <div
+      style={{ backgroundColor: "var(--bg-secondary)" }}
+      className="min-h-screen"
+    >
       {/* Header */}
-      <header style={{ backgroundColor: "var(--bg-primary)" }}
-      className="bg-white border-b border-gray-200 shadow-md">
+      <header
+        style={{ backgroundColor: "var(--bg-primary)" }}
+        className="bg-white border-b border-gray-200 shadow-md"
+      >
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div style={{ background: "var(--color-plum-light)" }} 
-              className="bg-gradient-to-br from-amber-500 to-amber-600 p-3 rounded-lg shadow-lg">
-                <Gem style={{ 
-                  color: "var(--color-white)" }}
-                className="w-8 h-8 text-black" />
+              <div
+                style={{ background: "var(--color-plum-light)" }}
+                className="bg-gradient-to-br from-amber-500 to-amber-600 p-3 rounded-lg shadow-lg"
+              >
+                <Gem
+                  style={{
+                    color: "var(--color-white)",
+                  }}
+                  className="w-8 h-8 text-black"
+                />
               </div>
               <div>
                 <h1 className="text-gray-900">PROJECT J</h1>
@@ -39,12 +48,21 @@ export default function App() {
 
             <div className="flex items-center gap-4">
               {/* Admin Badge */}
-              <div style={{ background: "var(--color-plum-light)" }}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border">
-                <ShieldCheck style={{ color: "var(--color-white)" }}
-                className="w-5 h-5" />
-                <span style={{ 
-                  color: "var(--color-white)" }}>Admin Panel</span>
+              <div
+                style={{ background: "var(--color-plum-light)" }}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg border"
+              >
+                <ShieldCheck
+                  style={{ color: "var(--color-white)" }}
+                  className="w-5 h-5"
+                />
+                <span
+                  style={{
+                    color: "var(--color-white)",
+                  }}
+                >
+                  Admin Panel
+                </span>
               </div>
             </div>
           </div>
