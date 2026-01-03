@@ -1,3 +1,4 @@
+// Import necessary libraries and components
 import { useState } from "react";
 import { LogOut, Users, FileText, MapPin, Tag } from "lucide-react";
 import { VendorManagement } from "./admin/VendorManagement";
@@ -13,35 +14,79 @@ interface AdminDashboardProps {
 type AdminTab = "vendors" | "offers" | "locations" | "plans";
 
 export function AdminDashboard({ onLogout }: AdminDashboardProps) {
+  // State for managing active tab
   const [activeTab, setActiveTab] = useState<AdminTab>("vendors");
 
-  const pendingVendors = mockVendors.filter((v) => v.status === "pending").length;
+  // Calculate stats for dashboard
+  const pendingVendors = mockVendors.filter(
+    (v) => v.status === "pending"
+  ).length;
   const pendingOffers = mockOffers.filter((o) => o.status === "pending").length;
   const activeOffers = mockOffers.filter((o) => {
     const validUntil = new Date(o.validUntil);
     return o.status === "approved" && validUntil >= new Date();
   }).length;
 
+  // Define tabs for navigation
   const tabs = [
-    { id: "vendors" as AdminTab, label: "Vendor Management", icon: Users, badge: pendingVendors },
-    { id: "offers" as AdminTab, label: "Offer Management", icon: FileText, badge: pendingOffers },
+    {
+      id: "vendors" as AdminTab,
+      label: "Vendor Management",
+      icon: Users,
+      badge: pendingVendors,
+    },
+    {
+      id: "offers" as AdminTab,
+      label: "Offer Management",
+      icon: FileText,
+      badge: pendingOffers,
+    },
     { id: "locations" as AdminTab, label: "Locations", icon: MapPin, badge: 0 },
-    { id: "plans" as AdminTab, label: "Subscription Plans", icon: Tag, badge: 0 },
+    {
+      id: "plans" as AdminTab,
+      label: "Subscription Plans",
+      icon: Tag,
+      badge: 0,
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200">
+    <div
+      className="min-h-screen"
+      style={{ backgroundColor: "var(--bg-primary)" }} // Apply primary background color
+    >
+      {/* Header Section */}
+      <div
+        className=""
+        style={{ backgroundColor: "var(--bg-tertiary)" }} // Removed border-b class
+      >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-gray-900">Admin Dashboard</h2>
-              <p className="text-sm text-gray-600">Manage your jewellery marketplace</p>
+              <h2
+                className="text-gray-900"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Admin Dashboard
+              </h2>
+              <p
+                className="text-sm"
+                style={{
+                  color: "var(--text-muted)",
+                  fontFamily: "var(--font-body)",
+                }}
+              >
+                Manage your jewellery marketplace
+              </p>
             </div>
             <button
               onClick={onLogout}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors text-red-600 hover:bg-red-50"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors"
+              style={{
+                color: "var(--color-error)",
+                backgroundColor: "var(--bg-tertiary)",
+                transition: "var(--transition-smooth)",
+              }}
             >
               <LogOut className="w-5 h-5" />
               Logout
@@ -50,32 +95,108 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="bg-white border-b border-gray-200">
+      {/* Stats Section */}
+      <div
+        className="border-b"
+        style={{
+          backgroundColor: "var(--bg-tertiary)",
+          borderColor: "var(--border-color)",
+        }}
+      >
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-gray-50 rounded-xl p-4">
-              <p className="text-sm mb-1 text-gray-600">Total Vendors</p>
-              <p className="text-gray-900">{mockVendors.length}</p>
+            <div
+              className="rounded-xl p-4"
+              style={{
+                backgroundColor: "var(--color-white)",
+                boxShadow: "var(--card-shadow)",
+              }}
+            >
+              <p
+                className="text-sm mb-1"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Total Vendors
+              </p>
+              <p
+                className="text-gray-900"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {mockVendors.length}
+              </p>
             </div>
-            <div className="bg-gray-50 rounded-xl p-4">
-              <p className="text-sm mb-1 text-gray-600">Pending Approvals</p>
-              <p className="text-gray-900">{pendingVendors}</p>
+            <div
+              className="rounded-xl p-4"
+              style={{
+                backgroundColor: "var(--color-white)",
+                boxShadow: "var(--card-shadow)",
+              }}
+            >
+              <p
+                className="text-sm mb-1"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Pending Approvals
+              </p>
+              <p
+                className="text-gray-900"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {pendingVendors}
+              </p>
             </div>
-            <div className="bg-gray-50 rounded-xl p-4">
-              <p className="text-sm mb-1 text-gray-600">Active Offers</p>
-              <p className="text-gray-900">{activeOffers}</p>
+            <div
+              className="rounded-xl p-4"
+              style={{
+                backgroundColor: "var(--color-white)",
+                boxShadow: "var(--card-shadow)",
+              }}
+            >
+              <p
+                className="text-sm mb-1"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Active Offers
+              </p>
+              <p
+                className="text-gray-900"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {activeOffers}
+              </p>
             </div>
-            <div className="bg-gray-50 rounded-xl p-4">
-              <p className="text-sm mb-1 text-gray-600">Pending Offers</p>
-              <p className="text-gray-900">{pendingOffers}</p>
+            <div
+              className="rounded-xl p-4"
+              style={{
+                backgroundColor: "var(--color-white)",
+                boxShadow: "var(--card-shadow)",
+              }}
+            >
+              <p
+                className="text-sm mb-1"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Pending Offers
+              </p>
+              <p
+                className="text-gray-900"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {pendingOffers}
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="bg-white border-b border-gray-200">
+      {/* Tabs Section */}
+      <div
+        className="border-b"
+        style={{
+          backgroundColor: "var(--bg-tertiary)",
+          borderColor: "var(--border-color)",
+        }}
+      >
         <div className="container mx-auto px-4">
           <div className="flex gap-1 overflow-x-auto">
             {tabs.map((tab) => (
@@ -87,11 +208,18 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
                     ? "border-amber-500 text-amber-600"
                     : "border-transparent text-gray-600 hover:text-gray-900"
                 }`}
+                style={{ fontFamily: "var(--font-body)" }}
               >
                 <tab.icon className="w-5 h-5" />
                 {tab.label}
                 {tab.badge > 0 && (
-                  <span className="bg-amber-500 text-black text-xs px-2 py-1 rounded-full">
+                  <span
+                    className="text-xs px-2 py-1 rounded-full"
+                    style={{
+                      backgroundColor: "var(--color-plum-light)",
+                      color: "var(--color-white)",
+                    }}
+                  >
                     {tab.badge}
                   </span>
                 )}
@@ -101,7 +229,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content Section */}
       <div className="container mx-auto px-4 py-8">
         {activeTab === "vendors" && <VendorManagement />}
         {activeTab === "offers" && <OfferManagement />}
