@@ -18,7 +18,7 @@ export default function App() {
 
   return (
     <div
-      style={{ backgroundColor: "var(--bg-secondary)" }}
+      style={{ backgroundColor: "var(--bg-medium)" }}
       className="min-h-screen"
     >
       {/* Header */}
@@ -30,14 +30,14 @@ export default function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div
-                style={{ background: "var(--color-plum-light)" }}
-                className="bg-gradient-to-br from-amber-500 to-amber-600 p-3 rounded-lg shadow-lg"
+                
+                className="p-3"
               >
                 <Gem
                   style={{
-                    color: "var(--color-white)",
+                    color: "var(--color-gold-primary)",
                   }}
-                  className="w-8 h-8 text-black"
+                  className="w-12 h-12 text-black"
                 />
               </div>
               <div>
@@ -82,7 +82,7 @@ export default function App() {
 
       {/* Footer */}
       <footer
-        style={{ backgroundColor: "var(--bg-secondary)" }}
+        style={{ backgroundColor: "var(--bg-medium)" }}
         className="bg-white border-t border-gray-200 mt-16"
       >
         <div className="container mx-auto px-4 py-6">

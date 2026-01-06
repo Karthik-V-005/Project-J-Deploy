@@ -58,7 +58,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
       {/* Header Section */}
       <div
         className=""
-        style={{ backgroundColor: "var(--bg-tertiary)" }} // Removed border-b class
+        style={{ backgroundColor: "var(--bg-medium)" }} // Removed border-b class
       >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -99,7 +99,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
       <div
         className="border-b"
         style={{
-          backgroundColor: "var(--bg-tertiary)",
+          backgroundColor: "var(--bg-medium)",
           borderColor: "var(--border-color)",
         }}
       >
@@ -193,7 +193,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
       <div
         className="border-b"
         style={{
-          backgroundColor: "var(--bg-tertiary)",
+          backgroundColor: "var(--bg-medium)",
           borderColor: "var(--border-color)",
         }}
       >

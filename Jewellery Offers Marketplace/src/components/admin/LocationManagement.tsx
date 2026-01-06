@@ -1,28 +1,30 @@
-import { useState } from 'react';
-import { states, citiesByState, pincodesByCity } from '../../data/mockData';
-import { Plus, Trash2, MapPin } from 'lucide-react';
-
-
+import { useState } from "react";
+import { states, citiesByState, pincodesByCity } from "../../data/mockData";
+import { Plus, Trash2, MapPin } from "lucide-react";
 
 export function LocationManagement() {
-  const [selectedState, setSelectedState] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
-  const [newState, setNewState] = useState('');
-  const [newCity, setNewCity] = useState('');
-  const [newPincode, setNewPincode] = useState('');
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [newState, setNewState] = useState("");
+  const [newCity, setNewCity] = useState("");
+  const [newPincode, setNewPincode] = useState("");
 
-  const availableCities = selectedState ? citiesByState[selectedState] || [] : [];
-  const availablePincodes = selectedCity ? pincodesByCity[selectedCity] || [] : [];
+  const availableCities = selectedState
+    ? citiesByState[selectedState] || []
+    : [];
+  const availablePincodes = selectedCity
+    ? pincodesByCity[selectedCity] || []
+    : [];
 
   return (
     <div className="space-y-6">
       {/* States Management */}
       <div className="bg-white rounded-xl shadow-md p-6">
-        <h3 className="text-gray-900 mb-4">States Management</h3>
+        <h3 className="text-gray-900">States Management</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Add State */}
           <div>
-            <h4 className="text-gray-700 mb-3">Add New State</h4>
+            <h4 className="text-gray-600 mb-3">Add New State</h4>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -35,10 +37,10 @@ export function LocationManagement() {
                 onClick={() => {
                   if (newState.trim()) {
                     alert(`State "${newState}" added successfully!`);
-                    setNewState('');
+                    setNewState("");
                   }
                 }}
-                className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600"
               >
                 <Plus className="w-4 h-4" />
                 Add
@@ -48,12 +50,17 @@ export function LocationManagement() {
 
           {/* Existing States */}
           <div>
-            <h4 className="text-gray-700 mb-3">Existing States ({states.length})</h4>
+            <h4 className="text-gray-600 mb-3">
+              Existing States ({states.length})
+            </h4>
             <div className="space-y-2 max-h-48 overflow-y-auto">
               {states.map((state) => (
-                <div key={state} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div
+                  key={state}
+                  className="flex items-center justify-between p-3 rounded-lg border border-gray-300 bg-gray-50"
+                >
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-gray-600" />
+                    <MapPin className="w-4 h-4 text-gray-400" />
                     <span className="text-gray-900">{state}</span>
                   </div>
                   <button className="text-red-600 hover:text-red-700">
@@ -68,11 +75,11 @@ export function LocationManagement() {
 
       {/* Cities Management */}
       <div className="bg-white rounded-xl shadow-md p-6">
-        <h3 className="text-gray-900 mb-4">Cities Management</h3>
+        <h3 className="text-gray-900">Cities Management</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Add City */}
           <div>
-            <h4 className="text-gray-700 mb-3">Add New City</h4>
+            <h4 className="text-gray-600 mb-3">Add New City</h4>
             <div className="space-y-3">
               <select
                 value={selectedState}
@@ -81,7 +88,9 @@ export function LocationManagement() {
               >
                 <option value="">Select State</option>
                 {states.map((state) => (
-                  <option key={state} value={state}>{state}</option>
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
                 ))}
               </select>
               <div className="flex gap-2">
@@ -97,11 +106,11 @@ export function LocationManagement() {
                   onClick={() => {
                     if (newCity.trim() && selectedState) {
                       alert(`City "${newCity}" added to ${selectedState}!`);
-                      setNewCity('');
+                      setNewCity("");
                     }
                   }}
                   disabled={!selectedState}
-                  className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 disabled:opacity-50"
                 >
                   <Plus className="w-4 h-4" />
                   Add
@@ -112,7 +121,7 @@ export function LocationManagement() {
 
           {/* Existing Cities */}
           <div>
-            <h4 className="text-gray-700 mb-3">Cities by State</h4>
+            <h4 className="text-gray-600 mb-3">Cities by State</h4>
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
@@ -120,15 +129,20 @@ export function LocationManagement() {
             >
               <option value="">Select State to View Cities</option>
               {states.map((state) => (
-                <option key={state} value={state}>{state}</option>
+                <option key={state} value={state}>
+                  {state}
+                </option>
               ))}
             </select>
             {selectedState && (
               <div className="space-y-2 max-h-48 overflow-y-auto">
                 {availableCities.map((city) => (
-                  <div key={city} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div
+                    key={city}
+                    className="flex items-center justify-between p-3 rounded-lg border border-gray-300 bg-gray-50"
+                  >
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-gray-600" />
+                      <MapPin className="w-4 h-4 text-gray-400" />
                       <span className="text-gray-900">{city}</span>
                     </div>
                     <button className="text-red-600 hover:text-red-700">
@@ -137,7 +151,9 @@ export function LocationManagement() {
                   </div>
                 ))}
                 {availableCities.length === 0 && (
-                  <p className="text-sm text-gray-500 text-center py-4">No cities added yet</p>
+                  <p className="text-sm text-center py-4 text-gray-500">
+                    No cities added yet
+                  </p>
                 )}
               </div>
             )}
@@ -147,23 +163,25 @@ export function LocationManagement() {
 
       {/* Pincodes Management */}
       <div className="bg-white rounded-xl shadow-md p-6">
-        <h3 className="text-gray-900 mb-4">Pincodes Management</h3>
+        <h3 className="text-gray-900">Pincodes Management</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Add Pincode */}
           <div>
-            <h4 className="text-gray-700 mb-3">Add New Pincode</h4>
+            <h4 className="text-gray-600 mb-3">Add New Pincode</h4>
             <div className="space-y-3">
               <select
                 value={selectedState}
                 onChange={(e) => {
                   setSelectedState(e.target.value);
-                  setSelectedCity('');
+                  setSelectedCity("");
                 }}
                 className="w-full px-4 py-2 rounded-lg border border-gray-300"
               >
                 <option value="">Select State</option>
                 {states.map((state) => (
-                  <option key={state} value={state}>{state}</option>
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
                 ))}
               </select>
               <select
@@ -174,7 +192,9 @@ export function LocationManagement() {
               >
                 <option value="">Select City</option>
                 {availableCities.map((city) => (
-                  <option key={city} value={city}>{city}</option>
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
                 ))}
               </select>
               <div className="flex gap-2">
@@ -189,12 +209,14 @@ export function LocationManagement() {
                 <button
                   onClick={() => {
                     if (newPincode.trim() && selectedCity) {
-                      alert(`Pincode "${newPincode}" added to ${selectedCity}!`);
-                      setNewPincode('');
+                      alert(
+                        `Pincode "${newPincode}" added to ${selectedCity}!`
+                      );
+                      setNewPincode("");
                     }
                   }}
                   disabled={!selectedCity}
-                  className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 disabled:opacity-50"
                 >
                   <Plus className="w-4 h-4" />
                   Add
@@ -205,18 +227,20 @@ export function LocationManagement() {
 
           {/* Existing Pincodes */}
           <div>
-            <h4 className="text-gray-700 mb-3">Pincodes by City</h4>
+            <h4 className="text-gray-600 mb-3">Pincodes by City</h4>
             <select
               value={selectedState}
               onChange={(e) => {
                 setSelectedState(e.target.value);
-                setSelectedCity('');
+                setSelectedCity("");
               }}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 mb-2"
             >
               <option value="">Select State</option>
               {states.map((state) => (
-                <option key={state} value={state}>{state}</option>
+                <option key={state} value={state}>
+                  {state}
+                </option>
               ))}
             </select>
             <select
@@ -227,15 +251,20 @@ export function LocationManagement() {
             >
               <option value="">Select City</option>
               {availableCities.map((city) => (
-                <option key={city} value={city}>{city}</option>
+                <option key={city} value={city}>
+                  {city}
+                </option>
               ))}
             </select>
             {selectedCity && (
               <div className="space-y-2 max-h-48 overflow-y-auto">
                 {availablePincodes.map((pincode) => (
-                  <div key={pincode} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div
+                    key={pincode}
+                    className="flex items-center justify-between p-3 rounded-lg border border-gray-300 bg-gray-50"
+                  >
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-gray-600" />
+                      <MapPin className="w-4 h-4 text-gray-400" />
                       <span className="text-gray-900">{pincode}</span>
                     </div>
                     <button className="text-red-600 hover:text-red-700">
@@ -244,7 +273,9 @@ export function LocationManagement() {
                   </div>
                 ))}
                 {availablePincodes.length === 0 && (
-                  <p className="text-sm text-gray-500 text-center py-4">No pincodes added yet</p>
+                  <p className="text-sm text-center py-4 text-gray-500">
+                    No pincodes added yet
+                  </p>
                 )}
               </div>
             )}
