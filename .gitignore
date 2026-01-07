@@ -1,0 +1,11 @@
+# Backend
+Backend/jewellery-backend/node_modules/
+Backend/jewellery-backend/dist/
+Backend/jewellery-backend/.env
+
+# Frontend
+Frontend/node_modules/
+Frontend/dist/
+
+# General
+.env
